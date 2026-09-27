@@ -13,6 +13,8 @@ void validar_rodada(int rodada) {
     }
 }
 
+
+// faz o contrário do encriptar; monto a lista sem o pipe
 std::vector<std::string> separar_tokens(const std::string& texto_cifrado) {
     std::vector<std::string> tokens;
     std::stringstream fluxo(texto_cifrado);

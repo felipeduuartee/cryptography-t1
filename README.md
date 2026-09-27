@@ -1,29 +1,7 @@
-# BR-BEPO
-
-Implementação da cifra BR-BEPO e comparação de desempenho com AES-256-CBC e RSA-2048-OAEP-SHA256.
-
-O relatório completo está disponível em `BR_BEPO__Do_Brasileirão_aos_Bytes.pdf`.
-
-## Requisitos
-
-- compilador C++ com suporte a C++17;
-- GNU Make;
-- OpenSSL com headers de desenvolvimento;
-- Python 3;
-- Matplotlib, somente para gerar os gráficos.
-
-No Ubuntu ou Debian:
+## Dependencias
 
 ```bash
-sudo apt update
-sudo apt install build-essential libssl-dev python3 python3-venv
-```
-
-## Clonar o repositório
-
-```bash
-git clone https://github.com/felipeduuartee/cryptography-t1.git
-cd cryptography-t1
+sudo apt install build-essential libssl-dev
 ```
 
 ## Compilar
@@ -32,80 +10,26 @@ cd cryptography-t1
 make
 ```
 
-São gerados os executáveis:
+Gera `programa_BRBEPO` e `benchmark`.
 
-- `programa_BRBEPO`: demonstração da cifra BR-BEPO;
-- `benchmark`: comparação entre BR-BEPO, AES e RSA;
-- `gerador_tabela`: reprodução das 25 permutações.
+## BR-BEPO
 
-## Executar a BR-BEPO
-
-O programa lê o conteúdo de `texto.txt` e solicita uma chave entre 1 e 25:
+Lê `texto.txt`, pede a chave (1 a 25) e gera `arquivoencriptado.txt` e `arquivodescriptado.txt`.
 
 ```bash
 ./programa_BRBEPO
 ```
 
-Arquivos gerados:
-
-- `arquivoencriptado.txt`;
-- `arquivodescriptado.txt`.
-
-Para verificar se o arquivo foi recuperado exatamente:
+## Benchmark
 
 ```bash
-cmp texto.txt arquivodescriptado.txt \
-    && echo "SUCESSO: arquivos idênticos" \
-    || echo "FALHA: arquivos diferentes"
+./benchmark --rodada 25 --saida resultados/benchmark.csv \
+    dados_gutenberg/lt1k_73576_excerpt.txt \
+    dados_gutenberg/73576-0.txt \
+    dados_gutenberg/1065.txt \
+    dados_gutenberg/41102-0.txt
 ```
 
-## Executar as validações
+Resultados: `resultados/benchmark.csv`  
+Gráficos: `graficos/grafico_cifragem.png` e `graficos/grafico_decifragem.png`
 
-```bash
-make validar-chave
-make validar-dados
-```
-
-## Executar o experimento completo
-
-Crie um ambiente virtual e instale o Matplotlib:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install matplotlib
-```
-
-Execute o benchmark e gere o CSV e os gráficos:
-
-```bash
-make experimento
-```
-
-Os arquivos são gravados em:
-
-```text
-resultados/benchmark.csv
-resultados/grafico_cifragem.png
-resultados/grafico_decifragem.png
-```
-
-`make experimento` realiza novas medições e sobrescreve os resultados existentes.
-
-Para recriar somente os gráficos usando o CSV atual:
-
-```bash
-make graphs
-```
-
-Para sair do ambiente virtual:
-
-```bash
-deactivate
-```
-
-## Limpar arquivos gerados
-
-```bash
-make clean
-```

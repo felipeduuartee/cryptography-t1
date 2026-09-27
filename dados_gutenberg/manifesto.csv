@@ -1,5 +1,0 @@
-faixa,titulo,arquivo,tamanho_bytes,sha256,tipo,url_fonte
-<1K,A Kiss for the Conqueror (trecho verbatim),lt1k_73576_excerpt.txt,984,8739ecd1eceda74fb779b67a9d68ac1e34e523aa6fef279131f4d4ebb43d302e,trecho contiguo verbatim autorizado,https://www.gutenberg.org/files/73576/73576-0.txt
-1K-10K,A Kiss for the Conqueror,73576-0.txt,9970,188bbbabb860d83a1857b5566aafef2c2f83ed3c359ce665106d58dfd2169abd,arquivo completo conferido contra snapshot conhecido,https://www.gutenberg.org/files/73576/73576-0.txt
-10K-100K,The Raven,1065.txt,27070,ec2a84588940a1d82cdb4866d716036625da7eb4224e7bcf0e0353b7b19954e5,arquivo completo conferido contra snapshot conhecido,https://www.gutenberg.org/files/1065/old/old/1065.txt
->100K,The King's Threshold; and On Baile's Strand,41102-0.txt,107810,1c3e587347acb974a9cb636bf74adedb7342162e60e4bde1f32292c8fea762ae,copia local do texto Gutenberg; integridade registrada por SHA-256,https://www.gutenberg.org/files/41102/41102-0.txt

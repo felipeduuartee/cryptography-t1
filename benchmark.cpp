@@ -19,6 +19,8 @@ struct Configuracao {
     std::vector<std::string> arquivos;
 };
 
+
+// formatar para formato csv, para gerar grafico
 std::string escapar_csv(const std::string& valor) {
     if (valor.find_first_of(",\"\n\r") == std::string::npos) {
         return valor;
@@ -64,6 +66,7 @@ long long ns_decorridos(const Relogio::time_point& inicio, const Relogio::time_p
     return std::chrono::duration_cast<std::chrono::nanoseconds>(fim - inicio).count();
 }
 
+// escrever linha do csv
 void registrar(std::ofstream& csv,
                const std::string& arquivo,
                size_t tamanho,
@@ -77,6 +80,8 @@ void registrar(std::ofstream& csv,
         << tempo_ns << '\n';
 }
 
+
+// ler a linha de comando e tomar decisao baseado nisso
 Configuracao argumentos(int argc, char** argv) {
     Configuracao cfg;
 
@@ -128,12 +133,12 @@ int main(int argc, char** argv)
         }
         csv << "arquivo,tamanho_bytes,algoritmo,operacao,tempo_ns\n";
 
-        // Chaves e IV sao preparados antes da medicao dos algoritmos.
+        // Chaves e IV sao preparados antes da medicao dos algoritmos
         AES256CBC aes;
         RSA2048OAEP rsa;
 
         for (const auto& caminho : cfg.arquivos) {
-            const Bytes original = ler_bytes(caminho); // leitura do arquivo fora da medicao
+            const Bytes original = ler_bytes(caminho); 
             std::cout << "Arquivo: " << caminho << " (" << original.size() << " bytes)\n";
 
             {

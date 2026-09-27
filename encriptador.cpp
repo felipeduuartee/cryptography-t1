@@ -14,6 +14,7 @@ void validar_rodada(int rodada) {
 }
 }
 
+// U, L e X são diferenciações do tipo de caracter lido. Maisculo, minusculo ou não esta no alfabeto
 std::string substituir_byte(char c)
 {
     if (c >= 'A' && c <= 'Z') {
@@ -31,6 +32,7 @@ std::string substituir_byte(char c)
     return std::string(hex_str);
 }
 
+
 std::vector<std::string> ler_arquivo(const std::string& nome_arquivo)
 {
     std::ifstream arquivo(nome_arquivo, std::ios::binary);
@@ -40,12 +42,14 @@ std::vector<std::string> ler_arquivo(const std::string& nome_arquivo)
 
     std::vector<std::string> texto_bytes;
     char byte_lido;
+    // eu preciso separar os tokens lidos na funcao de cima. Então, uso um pipe pra separar cada token, fico com UB, LP, AB e outros. Depois só ignoro o pipe na leitura, usando ele como separador
     while (arquivo.get(byte_lido)) {
         texto_bytes.push_back(substituir_byte(byte_lido) + "|");
     }
     return texto_bytes;
 }
 
+// separo os tokens em blocos de 26. isso pq o brasileirão tem 26 rodadas
 std::vector<std::vector<std::string>> agrupar_blocos(const std::vector<std::string>& texto_bytes)
 {
     std::vector<std::vector<std::string>> blocos;
@@ -60,6 +64,7 @@ std::vector<std::vector<std::string>> agrupar_blocos(const std::vector<std::stri
     return blocos;
 }
 
+// reordenar os tokens baseado na rodada escolhida
 std::vector<std::string> transpor_brasileirao(
     const std::vector<std::vector<std::string>>& blocos_texto,
     int rodada_chave)
@@ -71,6 +76,7 @@ std::vector<std::string> transpor_brasileirao(
         const int tamanho_bloco = static_cast<int>(bloco_atual.size());
         for (int j = 0; j < 26; ++j) {
             const int posicao_alvo = CHAVES_RODADAS[rodada_chave - 1][j];
+            // ignora posições não existentes no bloco, se for de 0 ate 6 por exemplo
             if (posicao_alvo < tamanho_bloco) {
                 texto_final.push_back(bloco_atual[static_cast<size_t>(posicao_alvo)]);
             }
@@ -80,6 +86,7 @@ std::vector<std::string> transpor_brasileirao(
     return texto_final;
 }
 
+// gravo num arquivo a lista de tokens gerados 
 void arquivo_encriptado(const std::vector<std::string>& texto_final, const std::string& nome_saida)
 {
     std::ofstream arquivo_saida(nome_saida, std::ios::binary);
@@ -92,6 +99,7 @@ void arquivo_encriptado(const std::vector<std::string>& texto_final, const std::
     }
 }
 
+// utilizo a função somente no benchmark para comparação com o AES e RSA
 std::string cifrar_brbepo(const std::vector<unsigned char>& dados, int rodada_chave)
 {
     validar_rodada(rodada_chave);
