@@ -49,7 +49,7 @@ std::vector<std::string> ler_arquivo(const std::string& nome_arquivo)
     return texto_bytes;
 }
 
-// separo os tokens em blocos de 26. isso pq o brasileirão tem 26 rodadas
+// separo os tokens em blocos de 26. isso pq o brasileirão tem 26 times
 std::vector<std::vector<std::string>> agrupar_blocos(const std::vector<std::string>& texto_bytes)
 {
     std::vector<std::vector<std::string>> blocos;
